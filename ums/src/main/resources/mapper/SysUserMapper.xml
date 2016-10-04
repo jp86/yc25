@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  命名空间是映射接口的全类名 -->
+<mapper namespace="com.yc.ums.mapper.SysUserMapper">
+  <select id="getAllUser" resultType="SysUser">
+      select * from profile where 50 > rownum 
+  </select>
+  
+  <update id="updateUser" parameterType="SysUser">
+     update profile set name=#{name}, birthday=#{birthday},
+     gender=#{gender}, career=#{career}, address=#{address},
+     mobile=#{mobile} where id=#{id}
+  </update>
+  
+  <resultMap type="UserBean" id="UserBeanMap">
+   	    <result column="pageSize" property="pageSize"/>
+   	    <result column="currPage" property="currPage"/>
+   	   <collection property="rows" column="{pageSize=pageSize, currPage=currPage}"
+   	       ofType="SysUser" select="getPaginationUsers"/>   	    
+   	</resultMap>
+   	
+   	<select id="getPartUser" parameterType="UserBean" resultMap="UserBeanMap">
+   	   select count(1) total, ${pageSize} pageSize, ${currPage} currPage 
+   	   from profile 
+   	</select>
+   	
+   	<select id="getPaginationUsers" resultType="SysUser">
+   	   select * from 
+		(select n.*, rownum rn from
+		(select * from profile) n where ${pageSize} * ${currPage} >= rownum )
+		where  rn > ( ${currPage} - 1) * ${pageSize}
+   	</select>
+</mapper>

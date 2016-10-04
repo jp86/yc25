@@ -1,0 +1,23 @@
+body{
+	width:80%;
+	margin:40px auto;
+}
+
+#modifyForm{
+	width:80%;
+	margin:20px auto;
+}
+
+#modifyForm input{
+	width: 100%
+}
+
+
+#detailForm{
+	width:80%;
+	margin:20px auto;
+}
+
+#detailForm input{
+	width: 80%
+}

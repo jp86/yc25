@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <typeAliases>
+      <!-- 配制指定包中的类使用别名， 别名为类的名字 -->
+        <package name="com.yc.ums.entity"/>
+    </typeAliases>
+    <!-- 数据连接环境 -->
+	<environments default="development">
+		<environment id="development">
+		    <!-- 数据的事务管理 -->
+			<transactionManager type="JDBC" />
+			<!-- 数据源配制 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+				<property name="username" value="mybatis" />
+				<property name="password" value="a" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 加载映射 文件 -->
+	<mappers>
+	    <mapper resource="mapper/SysUserMapper.xml"/>
+	</mappers>
+</configuration>
